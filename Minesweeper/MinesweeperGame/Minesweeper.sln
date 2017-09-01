@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.10
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minesweeper", "Minesweeper.vcxproj", "{C303719B-BD3D-4FBB-8B54-FBA67AA2BCE7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0B269920-B858-448B-ADAB-9FFB640D3942} = {0B269920-B858-448B-ADAB-9FFB640D3942}
+		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C} = {82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLib", "..\GameLib\GameLib.vcxproj", "{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minesweeper DLL", "..\MinesweeperDLL\Minesweeper DLL.vcxproj", "{0B269920-B858-448B-ADAB-9FFB640D3942}"
+	ProjectSection(ProjectDependencies) = postProject
+		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C} = {82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C303719B-BD3D-4FBB-8B54-FBA67AA2BCE7}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C303719B-BD3D-4FBB-8B54-FBA67AA2BCE7}.Debug|Win32.Build.0 = Debug|Win32
+		{C303719B-BD3D-4FBB-8B54-FBA67AA2BCE7}.Release|Win32.ActiveCfg = Release|Win32
+		{C303719B-BD3D-4FBB-8B54-FBA67AA2BCE7}.Release|Win32.Build.0 = Release|Win32
+		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}.Debug|Win32.Build.0 = Debug|Win32
+		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}.Release|Win32.ActiveCfg = Release|Win32
+		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}.Release|Win32.Build.0 = Release|Win32
+		{0B269920-B858-448B-ADAB-9FFB640D3942}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0B269920-B858-448B-ADAB-9FFB640D3942}.Debug|Win32.Build.0 = Debug|Win32
+		{0B269920-B858-448B-ADAB-9FFB640D3942}.Release|Win32.ActiveCfg = Release|Win32
+		{0B269920-B858-448B-ADAB-9FFB640D3942}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {118FA503-EEA3-4EB1-9C44-86E36FB0B362}
+	EndGlobalSection
+EndGlobal

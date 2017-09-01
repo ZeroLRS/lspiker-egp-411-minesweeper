@@ -1,0 +1,13 @@
+screen_size 1024 768
+cell_size_large 25 25
+num_mines_large 35
+cell_size_medium 12 12
+num_mines_medium 7
+cell_size_small 7 7
+num_mines_small 4
+num_games_LMS 3 3 3
+dll_filename DLLControl.txt
+target_frame_time 1
+fire_event_pause 1
+game_reset_pause 100
+max_reward_time 100000

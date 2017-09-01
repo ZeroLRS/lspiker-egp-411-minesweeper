@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C303719B-BD3D-4FBB-8B54-FBA67AA2BCE7}</ProjectGuid>
+    <RootNamespace>samplegame</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LibraryPath>..\MinesweeperDLL\Debug;..\GameLib\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(UniversalCRT_IncludePath);$(VCInstallDir)include;$(VCInstallDir)atlmfc\include;$(WindowsSDK_IncludePath)</IncludePath>
+    <ExecutablePath>$(ExecutablePath)</ExecutablePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(UniversalCRT_IncludePath);$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>..\MinesweeperDLL\Release;..\GameLib\Release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\external libs\SDL2\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;GameLib.lib;Minesweeper DLL.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\external libs\SDL2\SDL\lib\win32</AdditionalLibraryDirectories>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\external libs\Allegro5\include;..\..\..\external libs\SDL2\SDL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;allegro-5.0.10-monolith-md.lib;GameLib.lib;Minesweeper DLL.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\..\..\external libs\Allegro5\lib;..\..\..\external libs\SDL2\SDL\lib\win32</AdditionalLibraryDirectories>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="AIHolder.cpp" />
+    <ClCompile Include="AIPlayer.cpp" />
+    <ClCompile Include="BaseTask.cpp" />
+    <ClCompile Include="CompoundTask.cpp" />
+    <ClCompile Include="DataLoader.cpp" />
+    <ClCompile Include="DataRepository.cpp" />
+    <ClCompile Include="FireEventTask.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="GameSequencer.cpp" />
+    <ClCompile Include="GraphicsBuffer.cpp" />
+    <ClCompile Include="GraphicsColor.cpp" />
+    <ClCompile Include="GraphicsFont.cpp" />
+    <ClCompile Include="GraphicsGrid.cpp" />
+    <ClCompile Include="GraphicsSprite.cpp" />
+    <ClCompile Include="GraphicsSystem.cpp" />
+    <ClCompile Include="HumanPlayer.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="StatTracker.cpp" />
+    <ClCompile Include="TaskCollection.cpp" />
+    <ClCompile Include="tinyxml2\tinyxml2.cpp" />
+    <ClCompile Include="WaitAndFireEventTask.cpp" />
+    <ClCompile Include="WaitTask.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AIHolder.h" />
+    <ClInclude Include="AIPlayer.h" />
+    <ClInclude Include="BaseTask.h" />
+    <ClInclude Include="CompoundTask.h" />
+    <ClInclude Include="DataLoader.h" />
+    <ClInclude Include="DataRepository.h" />
+    <ClInclude Include="FireEventTask.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameSequencer.h" />
+    <ClInclude Include="GraphicsBuffer.h" />
+    <ClInclude Include="GraphicsColor.h" />
+    <ClInclude Include="GraphicsFont.h" />
+    <ClInclude Include="GraphicsGrid.h" />
+    <ClInclude Include="GraphicsSprite.h" />
+    <ClInclude Include="GraphicsSystem.h" />
+    <ClInclude Include="HumanPlayer.h" />
+    <ClInclude Include="InputSystem.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="StatTracker.h" />
+    <ClInclude Include="TaskCollection.h" />
+    <ClInclude Include="tinyxml2\tinyxml2.h" />
+    <ClInclude Include="WaitAndFireEventTask.h" />
+    <ClInclude Include="WaitTask.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
