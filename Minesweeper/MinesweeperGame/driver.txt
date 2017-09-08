@@ -1,10 +1,10 @@
 screen_size 1024 768
-cell_size_large 25 25
-num_mines_large 35
-cell_size_medium 12 12
-num_mines_medium 7
-cell_size_small 7 7
-num_mines_small 4
+cell_size_large  30 16
+num_mines_large 50
+cell_size_medium 16 16
+num_mines_medium 20
+cell_size_small 9 9
+num_mines_small 10
 num_games_LMS 3 3 3
 dll_filename DLLControl.txt
 target_frame_time 1
