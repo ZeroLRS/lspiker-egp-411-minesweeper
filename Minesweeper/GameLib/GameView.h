@@ -19,6 +19,7 @@ public:
 	inline void getXYFromIndex( UINT index, UINT& x, UINT& y ) const { return mpState->getGrid()->getXYFromIndex( index, x, y); };
 	inline std::vector<UINT> getAdjacentCellIndices( UINT index ) const { return mpState->getGrid()->getAdjacentCellIndices( index ); };
 	size_t getNumAdjacentMines( UINT index ) const;
+	size_t getTotalNumMines() const { return mpState->getGrid()->getNumMines(); };
 
 	inline HiddenCell getCell( UINT index ) const { return HiddenCell( mpState->getGrid()->getCellAtIndex( index) ); };
 	inline HiddenCell getCell( UINT x, UINT y ) const { return HiddenCell( mpState->getGrid()->getCellAt( x, y ) ); };

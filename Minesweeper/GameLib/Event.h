@@ -12,18 +12,26 @@ enum EventType
 	CELL_REVEALED_EVENT,
 	GAME_WON_EVENT,
 	GAME_QUIT_EVENT,
-	MOUSE_CLICKED_EVENT,
 	GAME_RESET_EVENT,
 	INIT_EVENT,
 	CLEANUP_EVENT,
+	MOUSE_CLICKED_EVENT,
+	CELL_REVEALED_NOTIFICATION,
+	GAME_RESET_NOTIFICATION,
 	NUM_EVENT_TYPES
 };
 
-const string EVENT_NAMES[NUM_EVENT_TYPES] =	{	"Reveal a Cell Event",
+const string EVENT_NAMES[NUM_EVENT_TYPES] =	{	"Pick a Cell Event",
 												"Mine Hit Event",
 												"Cell Revealed Event",
 												"Game Won Event",
-												"Game Quit Event"
+												"Game Quit Event",
+												"Game Reset Event",
+												"Game Init Event",
+												"Cleanup Event",
+												"Mouse Clicked Event",
+												"Cell Revealed Notification",
+												"Game Reset Notification",
 											};
 
 class Event:public BaseEvent

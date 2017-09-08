@@ -80,9 +80,11 @@
     <ClCompile Include="BaseEvent.cpp" />
     <ClCompile Include="Cell.cpp" />
     <ClCompile Include="CellClickTransaction.cpp" />
+    <ClCompile Include="CellRevealedNotification.cpp" />
     <ClCompile Include="DLLInittedTransaction.cpp" />
     <ClCompile Include="Event.cpp" />
     <ClCompile Include="EventSystem.cpp" />
+    <ClCompile Include="GameResetNotification.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="Grid.cpp" />
@@ -103,9 +105,11 @@
     <ClInclude Include="BaseEvent.h" />
     <ClInclude Include="Cell.h" />
     <ClInclude Include="CellClickTransaction.h" />
+    <ClInclude Include="CellRevealedNotification.h" />
     <ClInclude Include="DLLInittedTransaction.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EventSystem.h" />
+    <ClInclude Include="GameResetNotification.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameView.h" />
     <ClInclude Include="Grid.h" />

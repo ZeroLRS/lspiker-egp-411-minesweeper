@@ -4,6 +4,8 @@
 #include <vector>
 #include <algorithm>
 #include <set>
+#include "EventSystem.h"
+#include "CellRevealedNotification.h"
 
 using namespace std;
 
@@ -165,7 +167,7 @@ void Grid::revealZeroMinesAdjacentCells(UINT index)
 		toProcess.insert(index);
 	}
 	getCellAtIndex( index )->setFlags(REVEALED_CELL);
-
+	EventSystem::getEventSystem()->fireEvent(CellRevealedNotification(index));
 
 	while( !toProcess.empty() )
 	{
@@ -181,6 +183,7 @@ void Grid::revealZeroMinesAdjacentCells(UINT index)
 		{
 			//reveal cell
 			UINT adjIndex = adjIndices[i];
+			if (!getCellAtIndex(adjIndex)->isRevealed()) EventSystem::getEventSystem()->fireEvent(CellRevealedNotification(adjIndex));
 			getCellAtIndex( adjIndex )->setFlags(REVEALED_CELL);
 
 			if( alreadyProcessed.find( adjIndex ) == alreadyProcessed.end() )//hasn't already been processed

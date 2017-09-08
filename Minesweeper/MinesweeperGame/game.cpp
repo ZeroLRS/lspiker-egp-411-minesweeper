@@ -32,6 +32,7 @@
 #include <assert.h>
 #include <string>
 #include <fstream>
+#include "../GameLib/GameResetNotification.h"
 
 using namespace std;
 
@@ -372,6 +373,7 @@ void Game::gameResetCallback(const Event& theEvent, TransactionHandler* pHandler
 		UINT num = gpDataRepository->getEntry(DataKeyEnum::NUM_MINES).getUIntVal();
 		UINT maxRewardTime = gpDataRepository->getEntry(DataKeyEnum::MAX_REWARD_TIME).getUIntVal();
 		gpGame->resetGameState( width, height, num, maxRewardTime );
+		EventSystem::getEventSystem()->fireEvent(GameResetNotification(width, height, num));
 		//queue up next task
 		gpGame->mpTasks->addTask( new WaitAndFireEventTask( gpDataRepository->getEntry(DataKeyEnum::FIRE_EVENT_PAUSE).getUIntVal(), PICK_A_CELL_EVENT) );
 		

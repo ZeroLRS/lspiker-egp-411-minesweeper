@@ -11,6 +11,8 @@
 #include "..\GameLib\ResetGameEvent.h"
 #include <windows.h>
 #include "resource.h"
+#include "../GameLib/GameResetNotification.h"
+#include "../GameLib/CellRevealedNotification.h"
 
 void init(TransactionHandler* pHandler)
 {
@@ -38,13 +40,15 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 			}
 		}
 	}
-	else if (theEvent.getType() == GAME_RESET_EVENT)//a new game is about to be played
+	else if (theEvent.getType() == GAME_RESET_NOTIFICATION)//a new game is about to be played
 	{
 		//respond to a new game about to start
-		const ResetGameEvent& resetEvent = static_cast<const ResetGameEvent&>(theEvent);
+		const GameResetNotification& resetEvent = static_cast<const GameResetNotification&>(theEvent);
 		UINT numMines = resetEvent.getNumMines();
 		UINT width = resetEvent.getWidth();
 		UINT height = resetEvent.getHeight();
+
+		printf("\nNew Map Data\nWidth: %u\nHeight: %u\nNum Mines: %u\n", width, height, numMines);
 	}
 	else if (theEvent.getType() == INIT_EVENT)//game is being initialized for the first time (about to enter game loop)
 	{
@@ -54,6 +58,11 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 	else if (theEvent.getType() == CLEANUP_EVENT)//game is being shut down - cleanup any memory
 	{
 		//respond to the game being cleaned-up for this DLL
+	}
+	else if (theEvent.getType() == CELL_REVEALED_NOTIFICATION)
+	{
+		const CellRevealedNotification& cellNot = static_cast<const CellRevealedNotification&>(theEvent);
+		printf("%u ", cellNot.getRevealedCell());
 	}
 	return;
 }
