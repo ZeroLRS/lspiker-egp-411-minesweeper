@@ -19,6 +19,8 @@ public:
 	int getRandomUnopenedNotMine();
 	int getNextSafeSquare();
 
+	int getNumSafeSquares();
+
 	void calculateBoardState();
 
 private:

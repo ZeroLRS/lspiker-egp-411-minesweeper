@@ -13,7 +13,7 @@ SpikerSweeper::SpikerSweeper(int width, int height, int numMines)
 SpikerSweeper::~SpikerSweeper()
 {
 	delete mpMineLocations;
-	delete mpTheView;
+	//delete mpTheView;
 }
 
 // Count the number of mines surrounding our cell
@@ -142,6 +142,13 @@ int SpikerSweeper::getRandomUnopenedNotMine()
 
 int SpikerSweeper::getNextSafeSquare()
 {
+	//If we have nothing, return something random
+	if (mSafeLocations.size() <= 0)
+	{
+		std::cout << "This shouldn't happen often..." << std::endl;
+		return getRandomUnopenedNotMine();
+	}
+
 	// Get, remove, and return the last element in the vector.
 	int safeLocation = mSafeLocations.back();
 	mSafeLocations.pop_back();
@@ -151,6 +158,11 @@ int SpikerSweeper::getNextSafeSquare()
 int SpikerSweeper::getNumMarkedMines()
 {
 	return mNumMarkedMines;
+}
+
+int SpikerSweeper::getNumSafeSquares()
+{
+	return mSafeLocations.size();
 }
 
 bool SpikerSweeper::isCellMine(int index)
@@ -225,7 +237,7 @@ void SpikerSweeper::detectMines()
 			if (mpTheView->getNumAdjacentMines(i) == getAdjacentUnopened(i))
 			{
 				// All currently unopened mines adjacent to i are mines and should be marked.
-				//markUnopenedAdjacent(i);
+				markUnopenedAdjacent(i);
 			}
 		}
 	}
@@ -242,18 +254,110 @@ void SpikerSweeper::detectSafes()
 			if (mpTheView->getNumAdjacentMines(i) == getAdjacentMarkedMines(i))
 			{
 				// All currently unopened, non-mine squares adjacent to i are safe and should be added.
-				//safeUnopenedNonMineAdjacent(i);
+				safeUnopenedNonMineAdjacent(i);
 			}
 		}
 	}
 }
 
-void SpikerSweeper::markUnopenedAdjacent(int index)
+void SpikerSweeper::markUnopenedAdjacent(int origin)
 {
+	int ourRow = origin / mWidth;
+	int ourCol = origin % mWidth;
+	bool up, down, left, right;
 
+	// Do we need to go up?
+	up = ourRow > 0; // Don't go up if we are already at the top
+
+	// Do we need to go down?
+	down = ourRow < mHeight - 1; // Don't go down if we are already at the bottom
+
+	// Do we need to go left?
+	left = ourCol > 0; // Don't go left if we are at that side
+
+	// Do we need to go right?
+	right = ourCol < mWidth - 1; // Don't go right if we are at that side
+
+	/* Follow this order for evaluation (# is the current location
+	*
+	*  1 2 3
+	*  4 # 5
+	*  6 7 8
+	*
+	*/
+
+	if (up && left && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol - 1).isRevealed())
+		addMineLocation(mWidth * ourRow - 1 + ourCol - 1);
+
+	if (up && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol).isRevealed())
+		addMineLocation(mWidth * ourRow - 1 + ourCol);
+
+	if (up && right && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol + 1).isRevealed())
+		addMineLocation(mWidth * ourRow - 1 + ourCol + 1);
+
+	if (left && !mpTheView->getCell(mWidth * ourRow + ourCol - 1).isRevealed())
+		addMineLocation(mWidth * ourRow + ourCol - 1);
+
+	if (right && !mpTheView->getCell(mWidth * ourRow + ourCol + 1).isRevealed())
+		addMineLocation(mWidth * ourRow + ourCol + 1);
+
+	if (down && left && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol - 1).isRevealed())
+		addMineLocation(mWidth * ourRow + 1 + ourCol - 1);
+
+	if (down && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol).isRevealed())
+		addMineLocation(mWidth * ourRow + 1 + ourCol);
+
+	if (down && right && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol + 1).isRevealed())
+		addMineLocation(mWidth * ourRow + 1 + ourCol + 1);
 }
 
-void SpikerSweeper::safeUnopenedNonMineAdjacent(int index)
+void SpikerSweeper::safeUnopenedNonMineAdjacent(int origin)
 {
+	int ourRow = origin / mWidth;
+	int ourCol = origin % mWidth;
+	bool up, down, left, right;
 
+	// Do we need to go up?
+	up = ourRow > 0; // Don't go up if we are already at the top
+
+	// Do we need to go down?
+	down = ourRow < mHeight - 1; // Don't go down if we are already at the bottom
+
+	// Do we need to go left?
+	left = ourCol > 0; // Don't go left if we are at that side
+
+	// Do we need to go right?
+	right = ourCol < mWidth - 1; // Don't go right if we are at that side
+
+	/* Follow this order for evaluation (# is the current location
+	*
+	*  1 2 3
+	*  4 # 5
+	*  6 7 8
+	*
+	*/
+
+	if (up && left && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol - 1).isRevealed() && !isCellMine(mWidth * ourRow - 1 + ourCol - 1))
+		addSafeLocation(mWidth * ourRow - 1 + ourCol - 1);
+
+	if (up && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol).isRevealed() && !isCellMine(mWidth * ourRow - 1 + ourCol))
+		addSafeLocation(mWidth * ourRow - 1 + ourCol);
+
+	if (up && right && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol + 1).isRevealed() && !isCellMine(mWidth * ourRow - 1 + ourCol + 1))
+		addSafeLocation(mWidth * ourRow - 1 + ourCol + 1);
+
+	if (left && !mpTheView->getCell(mWidth * ourRow + ourCol - 1).isRevealed() && !isCellMine(mWidth * ourRow + ourCol - 1))
+		addSafeLocation(mWidth * ourRow + ourCol - 1);
+
+	if (right && !mpTheView->getCell(mWidth * ourRow + ourCol + 1).isRevealed() && !isCellMine(mWidth * ourRow + ourCol + 1))
+		addSafeLocation(mWidth * ourRow + ourCol + 1);
+
+	if (down && left && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol - 1).isRevealed() && !isCellMine(mWidth * ourRow + 1 + ourCol - 1))
+		addSafeLocation(mWidth * ourRow + 1 + ourCol - 1);
+
+	if (down && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol).isRevealed() && !isCellMine(mWidth * ourRow + 1 + ourCol))
+		addSafeLocation(mWidth * ourRow + 1 + ourCol);
+
+	if (down && right && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol + 1).isRevealed() && !isCellMine(mWidth * ourRow + 1 + ourCol + 1))
+		addSafeLocation(mWidth * ourRow + 1 + ourCol + 1);
 }

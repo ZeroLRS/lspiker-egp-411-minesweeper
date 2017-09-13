@@ -29,7 +29,24 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 		const GameView& theView = pickEvent.getGameView();
 		mSpikerSweeper->setGameView(&theView);
 
-		while(true)
+		// If we don't have any safe squares, generate some.
+		if (mSpikerSweeper->getNumSafeSquares() <= 0)
+		{
+			// Hopefully make some safe squares to select
+			mSpikerSweeper->calculateBoardState();
+		}
+
+		// If we still don't, pull something random
+		if (mSpikerSweeper->getNumSafeSquares() <= 0)
+		{
+			pHandler->postTransaction(new CellClickTransaction(mSpikerSweeper->getRandomUnopenedNotMine()));
+		}
+		else
+		{
+			std::cout << "We got one!" << std::endl;
+			pHandler->postTransaction(new CellClickTransaction(mSpikerSweeper->getNextSafeSquare()));
+		}
+		/*while(true)
 		{
 			//choose a random cell until we find one that is unrevealed
 			UINT index = rand() % theView.getNumCells();
@@ -39,7 +56,7 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 				pHandler->postTransaction( new CellClickTransaction(index) );
 				break;
 			}
-		}
+		}*/
 	}
 	else if (theEvent.getType() == GAME_RESET_NOTIFICATION)//a new game is about to be played
 	{
