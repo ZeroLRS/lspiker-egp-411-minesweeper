@@ -11,20 +11,20 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}</ProjectGuid>
+    <ProjectGuid>{0B269920-B858-448B-ADAB-9FFB640D3942}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>GameLib</RootNamespace>
+    <RootNamespace>SpikerSweeperDLL</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -41,9 +41,13 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>..\GameLib\debug;$(VCInstallDir)lib;$(VCInstallDir)atlmfc\lib;$(WindowsSDK_LibraryPath_x86);$(UniversalCRT_IncludePath)</LibraryPath>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>..\GameLib\release;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
     <OutDir>$(ProjectDir)$(Configuration)\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -52,11 +56,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MINESWEEPERDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>GameLib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;ucrtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(UniversalCRT_LibraryPath_x86)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -67,64 +74,32 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;MINESWEEPERDLL_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(UniversalCRT_LibraryPath_x86)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>GameLib.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;ucrtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BaseEvent.cpp" />
-    <ClCompile Include="Cell.cpp" />
-    <ClCompile Include="CellClickTransaction.cpp" />
-    <ClCompile Include="CellRevealedNotification.cpp" />
-    <ClCompile Include="DLLInittedTransaction.cpp" />
-    <ClCompile Include="Event.cpp" />
-    <ClCompile Include="EventSystem.cpp" />
-    <ClCompile Include="GameResetNotification.cpp" />
-    <ClCompile Include="GameState.cpp" />
-    <ClCompile Include="GameView.cpp" />
-    <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="HiddenCell.cpp" />
-    <ClCompile Include="MemoryTracker.cpp" />
-    <ClCompile Include="MouseEvent.cpp" />
-    <ClCompile Include="PerformanceTracker.cpp" />
-    <ClCompile Include="PickCellEvent.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ResetGameEvent.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Trackable.cpp" />
-    <ClCompile Include="Transaction.cpp" />
-    <ClCompile Include="TransactionHandler.cpp" />
-    <ClCompile Include="Vector2D.cpp" />
+    <ClInclude Include="DLLCode.h" />
+    <ClInclude Include="DLLUtil.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BaseEvent.h" />
-    <ClInclude Include="Cell.h" />
-    <ClInclude Include="CellClickTransaction.h" />
-    <ClInclude Include="CellRevealedNotification.h" />
-    <ClInclude Include="DLLInittedTransaction.h" />
-    <ClInclude Include="Event.h" />
-    <ClInclude Include="EventSystem.h" />
-    <ClInclude Include="GameResetNotification.h" />
-    <ClInclude Include="GameState.h" />
-    <ClInclude Include="GameView.h" />
-    <ClInclude Include="Grid.h" />
-    <ClInclude Include="HiddenCell.h" />
-    <ClInclude Include="MemoryTracker.h" />
-    <ClInclude Include="MouseEvent.h" />
-    <ClInclude Include="PerformanceTracker.h" />
-    <ClInclude Include="PickCellEvent.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="ResetGameEvent.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Trackable.h" />
-    <ClInclude Include="Transaction.h" />
-    <ClInclude Include="TransactionHandler.h" />
-    <ClInclude Include="Vector2D.h" />
+    <ClCompile Include="DLLCode.cpp" />
+    <ClCompile Include="DLLUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SpikerSweeperDLL.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,4 +1,4 @@
 Default
 ..\MinesweeperDLL\Debug\Minesweeper DLL.dll
-Erika
-..\DLLs\anderson_erika_minesweeper.dll
+SpikerSweeperDLL
+..\SpikerSweeperDLL\Debug\SpikerSweeperDLL.dll

@@ -11,7 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minesweeper", "Minesweeper.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameLib", "..\GameLib\GameLib.vcxproj", "{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Minesweeper DLL", "..\MinesweeperDLL\Minesweeper DLL.vcxproj", "{0B269920-B858-448B-ADAB-9FFB640D3942}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SpikerSweeperDLL", "..\SpikerSweeperDLL\SpikerSweeperDLL.vcxproj", "{0B269920-B858-448B-ADAB-9FFB640D3942}"
 	ProjectSection(ProjectDependencies) = postProject
 		{82DF1AED-6D09-4CED-8352-5E61FBC9AD8C} = {82DF1AED-6D09-4CED-8352-5E61FBC9AD8C}
 	EndProjectSection
