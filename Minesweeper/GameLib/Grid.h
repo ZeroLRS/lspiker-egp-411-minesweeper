@@ -36,10 +36,14 @@ public:
 	bool hasRevealedCellAdjacent( UINT index ) const;
 
 	void clearAllCells();
+
+	void setLastCellIndex(UINT i) { mLastCellIndex = i; }
+	UINT getLastCellIndex() const { return mLastCellIndex; }
 private:
 	Cell* mpCells; //dynamically allocated array of cell's
 	size_t mWidth;
 	size_t mHeight;
+	UINT mLastCellIndex;
 
 	//invalidate functions
 	void operator=(const Grid&);

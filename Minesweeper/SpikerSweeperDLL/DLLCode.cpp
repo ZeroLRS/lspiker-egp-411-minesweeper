@@ -27,6 +27,7 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 	{
 		const PickCellEvent& pickEvent = static_cast<const PickCellEvent&>(theEvent);
 		const GameView& theView = pickEvent.getGameView();
+		mSpikerSweeper->setGameView(&theView);
 
 		while(true)
 		{
@@ -48,16 +49,21 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 		UINT width = resetEvent.getWidth();
 		UINT height = resetEvent.getHeight();
 
+		delete mSpikerSweeper;
+		mSpikerSweeper = new SpikerSweeper(width, height, numMines);
+
 		printf("\nNew Map Data\nWidth: %u\nHeight: %u\nNum Mines: %u\n", width, height, numMines);
 	}
 	else if (theEvent.getType() == INIT_EVENT)//game is being initialized for the first time (about to enter game loop)
 	{
 		//respond to the game being initialized for this DLL
+		mSpikerSweeper = new SpikerSweeper(0, 0, 0);
 		init(pHandler);
 	}
 	else if (theEvent.getType() == CLEANUP_EVENT)//game is being shut down - cleanup any memory
 	{
 		//respond to the game being cleaned-up for this DLL
+		delete mSpikerSweeper;
 	}
 	else if (theEvent.getType() == CELL_REVEALED_NOTIFICATION)
 	{

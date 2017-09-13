@@ -90,10 +90,12 @@
     <ClInclude Include="DLLCode.h" />
     <ClInclude Include="DLLUtil.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SpikerSweeper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLCode.cpp" />
     <ClCompile Include="DLLUtil.cpp" />
+    <ClCompile Include="SpikerSweeper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SpikerSweeperDLL.rc" />

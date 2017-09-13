@@ -89,8 +89,9 @@ void GameState::handleTransaction( Transaction* pTransaction )
 				}
 				else if( !pCell->isRevealed() )
 				{
+					
 					mpGrid->revealZeroMinesAdjacentCells( pCellClick->getCellIndex() );
-
+					mpGrid->setLastCellIndex(pCellClick->getCellIndex());
 					//if there are still non-mines to reveal - fire cell revealed event
 					if( mpGrid->hasHiddenNonMinesLeft() )
 					{

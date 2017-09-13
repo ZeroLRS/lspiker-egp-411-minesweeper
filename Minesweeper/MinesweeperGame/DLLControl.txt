@@ -1,4 +1,2 @@
-Default
-..\MinesweeperDLL\Debug\Minesweeper DLL.dll
 SpikerSweeperDLL
 ..\SpikerSweeperDLL\Debug\SpikerSweeperDLL.dll

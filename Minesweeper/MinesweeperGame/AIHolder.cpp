@@ -44,6 +44,7 @@ void AIHolder::setActive( bool flag )
 	{
 		EventSystem::getEventSystem()->registerCallback(PICK_A_CELL_EVENT, mFunction);
 		EventSystem::getEventSystem()->registerCallback(GAME_RESET_NOTIFICATION, mFunction);
+		EventSystem::getEventSystem()->registerCallback(GAME_RESET_EVENT, mFunction);
 		EventSystem::getEventSystem()->registerCallback(CELL_REVEALED_NOTIFICATION, mFunction);
 		EventSystem::getEventSystem()->registerCallback(INIT_EVENT, mFunction);
 		EventSystem::getEventSystem()->registerCallback(CLEANUP_EVENT, mFunction);
@@ -53,6 +54,7 @@ void AIHolder::setActive( bool flag )
 	{
 		EventSystem::getEventSystem()->unregisterCallback(PICK_A_CELL_EVENT, mFunction);
 		EventSystem::getEventSystem()->unregisterCallback(GAME_RESET_NOTIFICATION, mFunction);
+		EventSystem::getEventSystem()->unregisterCallback(GAME_RESET_EVENT, mFunction);
 		EventSystem::getEventSystem()->unregisterCallback(CELL_REVEALED_NOTIFICATION, mFunction);
 		EventSystem::getEventSystem()->unregisterCallback(INIT_EVENT, mFunction);
 		EventSystem::getEventSystem()->unregisterCallback(CLEANUP_EVENT, mFunction);

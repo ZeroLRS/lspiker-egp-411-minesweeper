@@ -15,6 +15,7 @@ public:
 
 	void draw() const;
 	UINT getIndexFromPixelLoc(UINT xLoc, UINT yLoc) const;
+	
 
 private:
 	size_t mWidthInCells; //width expressed as number of cells
@@ -24,6 +25,7 @@ private:
 	UINT mULPixelLocX; //upper left x coordinate
 	UINT mULPixelLocY; //upper left y coordinate
 	Grid* mpGrid;
+	
 
 	GraphicsSprite* mpUnrevealedCellImage;
 	GraphicsSprite* mpMineCellImage;

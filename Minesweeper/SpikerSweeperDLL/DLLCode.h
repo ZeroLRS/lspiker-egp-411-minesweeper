@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include "SpikerSweeper.h"
 
 class Event;
 class TransactionHandler;
@@ -13,3 +14,5 @@ extern "C"
 void init(TransactionHandler* pHandler);
 std::string getMessageFromStringTable();
 std::string getMessageFromFileResource();
+
+SpikerSweeper* mSpikerSweeper;

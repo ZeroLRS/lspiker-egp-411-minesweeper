@@ -111,13 +111,13 @@ void GraphicsGrid::draw() const
 				//GraphicsSystem::drawSprite(*mpRevealedCellImage, x, y);
 				std::stringstream sstream;
 				sstream << mpGrid->getNumAdjacentMines( i );
-				GraphicsSystem::drawText( GraphicsFont::getFont(gpGame->getFontID()), x + xCenterOffset, y + yCenterOffset, COLOR_RED, sstream.str() );
+				GraphicsSystem::drawText( GraphicsFont::getFont(gpGame->getFontID()), x + xCenterOffset, y + yCenterOffset, mpGrid->getLastCellIndex() == i ? COLOR_BLUE : COLOR_WHITE, sstream.str() );
 			}
 		}
 		else
 		{
 			//GraphicsSystem::drawEntireBuffer( mpUnrevealedCellImage, x, y );
-			GraphicsSystem::drawSprite(*mpUnrevealedCellImage, x, y);
+			//GraphicsSystem::drawSprite(*mpUnrevealedCellImage, x, y);
 		}
 	}
 }
@@ -125,7 +125,7 @@ void GraphicsGrid::draw() const
 void GraphicsGrid::getPixelLocFromIndex(UINT index, UINT& x, UINT& y) const
 {
 	UINT cellX = index%mWidthInCells;
-	UINT cellY = index/mHeightInCells;
+	UINT cellY = index/mWidthInCells;
 
 	x = ( cellX * CELL_WIDTH ) + mULPixelLocX;
 	y = ( cellY * CELL_HEIGHT ) + mULPixelLocY;

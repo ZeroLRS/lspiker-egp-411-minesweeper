@@ -24,12 +24,18 @@
     <ClInclude Include="DLLUtil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="SpikerSweeper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLCode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DLLUtil.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpikerSweeper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
