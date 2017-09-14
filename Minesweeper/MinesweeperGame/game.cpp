@@ -137,6 +137,7 @@ void Game::doLoop()
 		UINT screenHeight = gpDataRepository->getEntry(DataKeyEnum::SCREEN_HEIGHT).getUIntVal();
 
 		GraphicsSystem::getGraphicsSystem()->init(screenWidth, screenHeight, false);
+		GraphicsSystem::getGraphicsSystem()->setWindowTitle(mpPlayer->getName());
 		//mpGraphicsGrid = new GraphicsGrid(mpState->getGrid(), screenWidth, screenHeight, 0, 0);
 		mpGraphicsGrid = NULL;
 
@@ -155,10 +156,11 @@ void Game::doLoop()
 		{
 			loopTimer.start();
 		
+			mpTasks->update();
+
 			TransactionHandler::getHandler()->processAllTransactions();
 			mpPlayer->update();
 		
-			mpTasks->update();
 			mpInputSystem->update();
 		
 			GraphicsSystem::clearBackBuffer(COLOR_BLACK);
@@ -175,7 +177,7 @@ void Game::doLoop()
 		
 		}
 		//gpStatTracker->logString(mpPlayer->getName() + "\n");
-		gpStatTracker->logString(mpPlayer->getName());
+		//gpStatTracker->logString(mpPlayer->getName());
 		gpStatTracker->reportStats();
 
 		EventSystem::getEventSystem()->fireEvent(Event(CLEANUP_EVENT));

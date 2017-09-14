@@ -62,7 +62,7 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 	else if (theEvent.getType() == CELL_REVEALED_NOTIFICATION)
 	{
 		const CellRevealedNotification& cellNot = static_cast<const CellRevealedNotification&>(theEvent);
-		printf("%u ", cellNot.getRevealedCell());
+		//printf("%u ", cellNot.getRevealedCell());
 	}
 	return;
 }

@@ -1,4 +1,2 @@
 SpikerSweeperDLL
 ..\SpikerSweeperDLL\Debug\SpikerSweeperDLL.dll
-BadRandomanDLL
-..\MinesweeperDLL\Debug\Minesweeper DLL.dll

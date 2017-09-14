@@ -50,6 +50,8 @@ public:
 	//set a rectangular region to a color
 	void fillRegion(GraphicsBuffer& buffer, const Vector2D& ul, const Vector2D& lr, const GraphicsColor& color);
 
+	void setWindowTitle(const std::string& newTitle);
+
 	//static functions
 	inline static GraphicsSystem* getGraphicsSystem() { assert(mspInstance != NULL); return mspInstance; };
 	inline static void createGraphicsSystem() { assert(mspInstance == NULL); mspInstance = new GraphicsSystem; };

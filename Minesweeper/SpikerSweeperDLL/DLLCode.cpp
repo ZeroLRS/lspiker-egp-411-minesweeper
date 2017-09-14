@@ -72,7 +72,7 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 		delete mSpikerSweeper;
 		mSpikerSweeper = new SpikerSweeper(width, height, numMines);
 
-		printf("\nNew Map Data\nWidth: %u\nHeight: %u\nNum Mines: %u\n", width, height, numMines);
+		//printf("\nNew Map Data\nWidth: %u\nHeight: %u\nNum Mines: %u\n", width, height, numMines);
 	}
 	else if (theEvent.getType() == INIT_EVENT)//game is being initialized for the first time (about to enter game loop)
 	{
@@ -88,7 +88,7 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 	else if (theEvent.getType() == CELL_REVEALED_NOTIFICATION)
 	{
 		const CellRevealedNotification& cellNot = static_cast<const CellRevealedNotification&>(theEvent);
-		printf("%u ", cellNot.getRevealedCell());
+		//printf("%u ", cellNot.getRevealedCell());
 	}
 	return;
 }

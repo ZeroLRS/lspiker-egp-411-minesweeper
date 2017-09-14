@@ -252,27 +252,27 @@ void SpikerSweeper::calculateBoardState()
 	int currentMines = -1;
 	int prevMines = -2;
 
-	while (currentSafes != prevSafes || currentMines != prevMines)
-	{
-		while (currentMines != prevMines)
-		{
-			detectMines();
+	//while (currentSafes != prevSafes || currentMines != prevMines)
+	//{
+		//while (currentMines != prevMines)
+		//{
+		detectMines();
 
-			prevMines = currentMines;
-			currentMines = getNumMarkedMines();
-		}
+		prevMines = currentMines;
+		currentMines = getNumMarkedMines();
+		//}
 
 		detectSafes();
 
 		prevSafes = currentSafes;
 		currentSafes = mSafeLocations.size();
 
-		detectMines();
+		//detectMines();
 
-		prevMines = currentMines;
-		currentMines = getNumMarkedMines();
+		//prevMines = currentMines;
+		//currentMines = getNumMarkedMines();
 
-	}
+	//}
 }
 
 // For all squares with value n, if they touch exactly n unopened squares, all of those squares must be mines

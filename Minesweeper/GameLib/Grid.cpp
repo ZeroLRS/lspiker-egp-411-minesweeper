@@ -80,8 +80,15 @@ std::vector<UINT> Grid::getAdjacentCellIndices( UINT index ) const
 
 void Grid::placeRandomMines( size_t numMines )
 {
+	//cout << "Placing random mines  numMines=" << numMines << " width=" << mWidth << " height=" << mHeight << endl;
+
 	//create vector of indices which will be shuffled
 	size_t numCells = mWidth * mHeight;
+	
+	//bogus check to make sure we can place all mines
+	if (numCells < numMines)
+		return;
+
 	vector<int> indices( numCells );
 
 	for( size_t i=0; i<numCells; i++ )

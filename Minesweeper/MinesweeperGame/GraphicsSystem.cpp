@@ -254,6 +254,11 @@ void GraphicsSystem::fillRegion(GraphicsBuffer& buffer, const Vector2D& ul, cons
 	restoreRenderTarget(pOldTarget);
 }
 
+void GraphicsSystem::setWindowTitle(const std::string& newTitle)
+{
+	SDL_SetWindowTitle(mpWindow, newTitle.c_str());
+}
+
 SDL_Texture* GraphicsSystem::loadTexture(const std::string& filename)
 {
 	SDL_Surface* pSurface = IMG_Load(filename.c_str());

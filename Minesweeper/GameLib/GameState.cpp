@@ -165,7 +165,10 @@ int GameState::calcScore(bool won) const
 		score *= 2;
 		int timeBonus = mMaxRewardTime / min((UINT)getGameTime(), mMaxRewardTime);
 		score += timeBonus;
+
+		cout << "score=" << score << " time bonus=" << timeBonus << endl;
 	}
+
 	return score;
 }
 

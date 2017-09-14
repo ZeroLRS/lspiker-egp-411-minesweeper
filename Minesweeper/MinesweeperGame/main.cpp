@@ -31,7 +31,7 @@ int main(int argc, char **argv)
 		gpDataRepository = new DataRepository;
 		srand((UINT)time(NULL));
 		DataLoader loader("driver.txt");
-		gpStatTracker = new StatTracker("stats.txt");
+		gpStatTracker = new StatTracker("stats.csv");
 		gpGame = new Game;
 		gpGame->init();
 
