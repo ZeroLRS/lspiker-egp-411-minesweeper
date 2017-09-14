@@ -7,16 +7,32 @@ SpikerSweeper::SpikerSweeper(int width, int height, int numMines)
 	mNumMines = numMines;
 	mNumMarkedMines = 0;
 
-	mpMineLocations = new int[numMines];
+	//mpMineLocations = new int[numMines];
 }
 
 SpikerSweeper::~SpikerSweeper()
 {
-	delete mpMineLocations;
+	//delete mpMineLocations;
 	//delete mpTheView;
 }
 
 // Count the number of mines surrounding our cell
+int SpikerSweeper::getAdjacentMarkedMines(int origin)
+{
+	int mineCounter = 0;
+	std::vector<UINT> adjacentSquares = mpTheView->getAdjacentCellIndices(origin);
+
+	for each (UINT square in adjacentSquares)
+	{
+		if (isCellMine(square))
+			mineCounter++;
+	}
+
+	return mineCounter;
+}
+
+// Old pre-getAdjacentCellIndicies version
+/*
 int SpikerSweeper::getAdjacentMarkedMines(int origin)
 {
 	int mineCount = 0;
@@ -42,7 +58,7 @@ int SpikerSweeper::getAdjacentMarkedMines(int origin)
 	 *  4 # 5
 	 *  6 7 8
 	 *
-	 */
+	 *//*
 
 	if (up && left && isCellMine(mWidth * ourRow - 1 + ourCol -1))
 		mineCount++;
@@ -69,9 +85,25 @@ int SpikerSweeper::getAdjacentMarkedMines(int origin)
 		mineCount++;
 
 	return mineCount;
-}
+}*/
 
 // Count the number of unopened mines surrounding our cell
+int SpikerSweeper::getAdjacentUnopened(int origin)
+{
+	int unopenedCounter = 0;
+	std::vector<UINT> adjacentSquares = mpTheView->getAdjacentCellIndices(origin);
+
+	for each (UINT square in adjacentSquares)
+	{
+		if (!mpTheView->getCell(square).isRevealed())
+			unopenedCounter++;
+	}
+
+	return unopenedCounter;
+}
+
+// Old pre-getAdjacentCellIndicies version
+/*
 int SpikerSweeper::getAdjacentUnopened(int origin)
 {
 	int unopenedCount = 0;
@@ -97,7 +129,7 @@ int SpikerSweeper::getAdjacentUnopened(int origin)
 	*  4 # 5
 	*  6 7 8
 	*
-	*/
+	*//*
 
 	if (up && left && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol - 1).isRevealed())
 		unopenedCount++;
@@ -124,7 +156,7 @@ int SpikerSweeper::getAdjacentUnopened(int origin)
 		unopenedCount++;
 
 	return unopenedCount;
-}
+}*/
 
 // Getting specific square data
 int SpikerSweeper::getRandomUnopenedNotMine()
@@ -145,7 +177,7 @@ int SpikerSweeper::getNextSafeSquare()
 	//If we have nothing, return something random
 	if (mSafeLocations.size() <= 0)
 	{
-		std::cout << "This shouldn't happen often..." << std::endl;
+		std::cout << "This shouldn't happen ever..." << std::endl;
 		return getRandomUnopenedNotMine();
 	}
 
@@ -171,10 +203,13 @@ bool SpikerSweeper::isCellMine(int index)
 	mpTheView->getCell(index).isRevealed();
 
 	// Check if the current index is on the list of mines
-	for (int i = 0; i < mNumMarkedMines; i++)
+	for each (int i in mpMineLocations)
 	{
-		if (mpMineLocations[i] = index)
+		if (i == index)
+		{
+			//std::cout << "Cell " << index << " IS mine!" << std::endl;
 			return true;
+		}
 	}
 
 	return false;
@@ -183,16 +218,19 @@ bool SpikerSweeper::isCellMine(int index)
 // Adding square data
 void SpikerSweeper::addMineLocation(int mineLocation)
 {
-	//Make sure we don't put in any duplicates
-	for (int i = 0; i < mNumMarkedMines; i++)
+	// Prevent duplication
+	for each (int i in mpMineLocations)
 	{
-		if (mpMineLocations[i] == mineLocation)
+		if (i == mineLocation)
+		{
+			//std::cout << "Prevented duplicate mine entry." << std::endl;
 			return;
+		}
 	}
 
 	// Add the new mine location and increment the counter
-	mpMineLocations[mNumMarkedMines] = mineLocation;
-	mNumMarkedMines++;
+	mpMineLocations.push_back(mineLocation);
+	//std::cout << "Added MINE at location: " << mineLocation << std::endl;
 }
 
 void SpikerSweeper::addSafeLocation(int safeLocation)
@@ -204,6 +242,7 @@ void SpikerSweeper::addSafeLocation(int safeLocation)
 			return;
 	}
 	mSafeLocations.push_back(safeLocation);
+	//std::cout << "Added SAFE at location: " << safeLocation << std::endl;
 }
 
 void SpikerSweeper::calculateBoardState()
@@ -212,17 +251,27 @@ void SpikerSweeper::calculateBoardState()
 	int prevSafes = -2;
 	int currentMines = -1;
 	int prevMines = -2;
-	
+
 	while (currentSafes != prevSafes || currentMines != prevMines)
 	{
-		detectMines();
+		while (currentMines != prevMines)
+		{
+			detectMines();
+
+			prevMines = currentMines;
+			currentMines = getNumMarkedMines();
+		}
+
 		detectSafes();
 
 		prevSafes = currentSafes;
 		currentSafes = mSafeLocations.size();
 
+		detectMines();
+
 		prevMines = currentMines;
 		currentMines = getNumMarkedMines();
+
 	}
 }
 
@@ -231,7 +280,7 @@ void SpikerSweeper::detectMines()
 {
 	for (int i = 0; i < mWidth * mHeight; i++)
 	{
-		if (mpTheView->getCell(i).isRevealed())
+		if (mpTheView->getCell(i).isRevealed() && mpTheView->getNumAdjacentMines(i) > 0)
 		{
 			// Square value == adjacent unopened
 			if (mpTheView->getNumAdjacentMines(i) == getAdjacentUnopened(i))
@@ -248,18 +297,34 @@ void SpikerSweeper::detectSafes()
 {
 	for (int i = 0; i < mWidth * mHeight; i++)
 	{
-		if (mpTheView->getCell(i).isRevealed())
+		if (mpTheView->getCell(i).isRevealed() && mpTheView->getNumAdjacentMines(i) > 0)
 		{
 			// Square value == adjacent mines
+			//std::cout << "gnam: " << mpTheView->getNumAdjacentMines(i) << " gamm: " << getAdjacentMarkedMines(i) << std::endl;
 			if (mpTheView->getNumAdjacentMines(i) == getAdjacentMarkedMines(i))
 			{
 				// All currently unopened, non-mine squares adjacent to i are safe and should be added.
+				//std::cout << "Marking squares adjacent to: " << i << " SAFE" << std::endl;
 				safeUnopenedNonMineAdjacent(i);
 			}
 		}
 	}
 }
 
+// Mark all nearby cells that aren't opened as mines
+void SpikerSweeper::markUnopenedAdjacent(int origin)
+{
+	std::vector<UINT> adjacentSquares = mpTheView->getAdjacentCellIndices(origin);
+
+	for each (UINT square in adjacentSquares)
+	{
+		if (!mpTheView->getCell(square).isRevealed())
+			addMineLocation(square);
+	}
+}
+
+// Old pre-getAdjacentCellIndicies version
+/*
 void SpikerSweeper::markUnopenedAdjacent(int origin)
 {
 	int ourRow = origin / mWidth;
@@ -284,7 +349,7 @@ void SpikerSweeper::markUnopenedAdjacent(int origin)
 	*  4 # 5
 	*  6 7 8
 	*
-	*/
+	*//*
 
 	if (up && left && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol - 1).isRevealed())
 		addMineLocation(mWidth * ourRow - 1 + ourCol - 1);
@@ -309,8 +374,22 @@ void SpikerSweeper::markUnopenedAdjacent(int origin)
 
 	if (down && right && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol + 1).isRevealed())
 		addMineLocation(mWidth * ourRow + 1 + ourCol + 1);
+}*/
+
+// Mark all nearby cells that aren't opened and aren't mines as safe
+void SpikerSweeper::safeUnopenedNonMineAdjacent(int origin)
+{
+	std::vector<UINT> adjacentSquares = mpTheView->getAdjacentCellIndices(origin);
+
+	for each (UINT square in adjacentSquares)
+	{
+		if (!mpTheView->getCell(square).isRevealed() && !isCellMine(square))
+			addSafeLocation(square);
+	}
 }
 
+// Old pre-getAdjacentCellIndicies version
+/*
 void SpikerSweeper::safeUnopenedNonMineAdjacent(int origin)
 {
 	int ourRow = origin / mWidth;
@@ -335,7 +414,7 @@ void SpikerSweeper::safeUnopenedNonMineAdjacent(int origin)
 	*  4 # 5
 	*  6 7 8
 	*
-	*/
+	*//*
 
 	if (up && left && !mpTheView->getCell(mWidth * ourRow - 1 + ourCol - 1).isRevealed() && !isCellMine(mWidth * ourRow - 1 + ourCol - 1))
 		addSafeLocation(mWidth * ourRow - 1 + ourCol - 1);
@@ -360,4 +439,4 @@ void SpikerSweeper::safeUnopenedNonMineAdjacent(int origin)
 
 	if (down && right && !mpTheView->getCell(mWidth * ourRow + 1 + ourCol + 1).isRevealed() && !isCellMine(mWidth * ourRow + 1 + ourCol + 1))
 		addSafeLocation(mWidth * ourRow + 1 + ourCol + 1);
-}
+}*/

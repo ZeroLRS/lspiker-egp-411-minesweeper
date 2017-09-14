@@ -24,7 +24,7 @@ public:
 	void calculateBoardState();
 
 private:
-	int* mpMineLocations;
+	std::vector<int> mpMineLocations;
 	std::vector<int> mSafeLocations;
 
 	int mWidth, mHeight;

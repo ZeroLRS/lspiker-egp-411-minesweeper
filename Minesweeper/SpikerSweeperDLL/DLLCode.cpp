@@ -39,12 +39,15 @@ __declspec(dllexport) void makeDecision(const Event& theEvent, TransactionHandle
 		// If we still don't, pull something random
 		if (mSpikerSweeper->getNumSafeSquares() <= 0)
 		{
+			//std::cout << "Random output :(" << std::endl;
 			pHandler->postTransaction(new CellClickTransaction(mSpikerSweeper->getRandomUnopenedNotMine()));
 		}
 		else
 		{
-			std::cout << "We got one!" << std::endl;
-			pHandler->postTransaction(new CellClickTransaction(mSpikerSweeper->getNextSafeSquare()));
+			//std::cout << "We got one!" << std::endl;
+			int returnCellIndex = mSpikerSweeper->getNextSafeSquare();
+			//std::cout << "Returning: " << returnCellIndex << std::endl;
+			pHandler->postTransaction(new CellClickTransaction(returnCellIndex));
 		}
 		/*while(true)
 		{
